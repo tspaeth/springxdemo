@@ -1,0 +1,41 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">New Beer</div>
+    <div class="panel-body">
+        <form class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Brand name</label>
+                    <div class="col-lg-10 form-control"><input type="text" ng-model="beer.brand"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Brewery</label>
+                    <div class="col-lg-10 form-control">
+                        <select ng-model="beer.company" ng-options="brewery._links.self.href as brewery.companyName for (id, brewery) in breweries">
+                            <option value="">-- choose brewery--</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Alc. %</label>
+
+                    <div class="col-lg-10 form-control"><input type="text" ng-model="beer.alcVol"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Logo</label>
+
+                    <div class="col-lg-10 form-control">
+                        <input type="text" ng-model="beer.companyLogoURL">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" ng-click="saveBeer()">Save Beer</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{{beer}}

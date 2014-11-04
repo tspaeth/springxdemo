@@ -1,0 +1,63 @@
+<!doctype html>
+<html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="springbeer" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1000">
+    <meta name="robots" content="noindex, nofollow"/>
+
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="bower_components/angular-translate/angular-translate.js"></script>
+    <script type="text/javascript" src="bower_components/angular-ui-grid/ui-grid.js"></script>
+    <script type="text/javascript" src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css">
+    <!-- Application Javascript -->
+    <script type="text/javascript" src="app/app.js"></script>
+    <script type="text/javascript" src="app/js/common/http-interceptor.js"></script>
+    <script type="text/javascript" src="app/js/directive/messagebox.js"></script>
+    <script type="text/javascript" src="app/js/service/messageservice.js"></script>
+    <script type="text/javascript" src="app/js/menu-controller.js"></script>
+    <script type="text/javascript" src="app/js/home-controller.js"></script>
+    <script type="text/javascript" src="app/js/detail-controller.js"></script>
+    <script type="text/javascript" src="app/js/login-controller.js"></script>
+    <script type="text/javascript" src="app/js/service/user-service.js"></script>
+
+    <!-- CSS files -->
+    <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.css">
+    <link rel="stylesheet" href="app/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/css/main.css">
+    <!-- other files -->
+
+</head>
+<body>
+<header class="navbar navbar-default ">
+    <div class="navbar-inner" ng-controller="MenuCtrl">
+        <div class="container">
+            <nav class="hidden-xs">
+
+                <a ui-sref="home" role="button" class="navbar-brand" translate="home"> </a>
+                <ul class="nav navbar-nav">
+
+
+                    <li><a href ui-sref="createBeer" translate="CREATE_BEER"></a></li>
+
+                <li><a href ng-click="changeLang('de')">Deutsch</a></li>
+                <li><a href ng-click="changeLang('en')">English</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a ui-sref="login" translate="Login"></a></li>
+                    <li><a href ng-click="logout()" translate="Logout"></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<div class="messages">
+    <messagebox></messagebox>
+</div>
+<div class="container" ui-view></div>
+</body>
+</html>

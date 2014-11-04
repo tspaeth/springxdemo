@@ -1,0 +1,27 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">Login</div>
+    <div class="panel-body">
+        <form class="form-horizontal" ng-submit="doLogin()">
+            <fieldset>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Username</label>
+
+                    <div class="col-lg-10 form-control">
+                        <input type="text" ng-model="userdata.username">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Password</label>
+
+                    <div class="col-lg-10 form-control">
+                        <input type="password" ng-model="userdata.password">
+                    </div>
+                </div>
+            </fieldset>
+            <button >Login</button>
+        </form>
+        {{ message }}
+    </div>
+</div>
