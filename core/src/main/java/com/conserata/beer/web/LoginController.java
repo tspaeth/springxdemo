@@ -14,6 +14,9 @@ import java.util.List;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * This is just an example base for extending it with a different approach
+ * -- currently not used --
  */
 @Controller
 public class LoginController {

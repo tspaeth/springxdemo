@@ -12,8 +12,11 @@ import java.util.List;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * Gives access to the JPA Company-Table and also maps the REST endpoint on /company
  */
 @RepositoryRestResource(path = "company")
+// if we would have roles....
 //@PreAuthorize("hasRole('ROLE_ADMIN')")
 public interface CompanyRepository extends PagingAndSortingRepository<Company, Long> {
 

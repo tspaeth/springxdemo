@@ -6,6 +6,8 @@ import javax.persistence.Table;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * -- unused --
  */
 @Entity
 @Table(name="User")

@@ -14,6 +14,9 @@ import org.springframework.util.Assert;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * Base database setup - will get called when the application starts up
+ * Provides some initial beer data.
  */
 @Service
 class BeerInitializer {
@@ -40,6 +43,13 @@ class BeerInitializer {
         warsteiner.setCountry(Country.DE);
 
         companies.save(warsteiner);
+
+        Company augustiner = new Company();
+        warsteiner.setCompanyName("Augustiner");
+        warsteiner.setCompanyAddress("Munich");
+        warsteiner.setCountry(Country.DE);
+
+        companies.save(augustiner);
 
 
         Beer beer = new Beer();

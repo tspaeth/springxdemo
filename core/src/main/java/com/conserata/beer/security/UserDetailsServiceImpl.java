@@ -13,6 +13,9 @@ import java.util.List;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * Just do a very short user details stuff for holding the user information and roles....
+ *
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
 

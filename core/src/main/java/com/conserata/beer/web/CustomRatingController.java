@@ -20,11 +20,15 @@ import java.util.List;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * This Spring MVC controller just shows how to use MVC controllers being exposed as REST-endpoints
+ * The demo service in this class just calculates the average rating of one beer by selecting all
+ * ratings from the database and then just iterating through the resultset
  */
 @Controller
 public class CustomRatingController {
 
-
+    // inject the rating repository for searching through the Ratings-entity
     @Autowired
     private RatingRepository ratingRepository;
 

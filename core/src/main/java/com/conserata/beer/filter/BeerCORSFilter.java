@@ -10,6 +10,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
+/**
+ * This Filter provides the CORS setup, so that the AngularJS-client is capable of running on another Webport
+ * or another server (e.g. starting it up with a static node.js instance) for faster try & error
+ *
+ * We need to setup some variables for that. In production you would specify some more security bound values probably...
+ *
+ */
 @Component
 public class BeerCORSFilter implements Filter {
 

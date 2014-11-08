@@ -1,3 +1,10 @@
+/**
+ * @description Handles the login-click and stores the token in local storage in case of success
+ *
+ * @author Thorsten Spaeth <info@conserata.com>
+ *
+ *
+ */
 (function () {
     'use strict';
 

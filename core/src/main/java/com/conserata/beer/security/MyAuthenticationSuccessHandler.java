@@ -35,27 +35,40 @@ public class MyAuthenticationSuccessHandler extends SimpleUrlAuthenticationSucce
     @Autowired
     private UserSessionRepository userSessionRepository;
 
+    // Ok, username and password were fine...
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws ServletException, IOException {
+        // generate a 32-char random token
         String token = new BigInteger(130, random).toString(32);
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode tokenElement = mapper.createObjectNode().put("token", token);
+        // create a user session for the database
         UserSession sessionData = new UserSession();
+        // usersession is valid
         sessionData.setExpired(false);
+        // set the token to the database
         sessionData.setSessionToken(token);
+        // simple approach: just map it to a username (don't do that in production, use id)
         sessionData.setUsername(authentication.getName());
+        // persist...
         userSessionRepository.save(sessionData);
 
+        // let's check what sessions I already have and just output them to the console
+        // (( useless bullshit :-) ))
         List<UserSession> userSessionList = (List<UserSession>)userSessionRepository.findAll();
         for (UserSession userSession : userSessionList) {
             System.out.println(userSession.toString());
         }
+        // get back the token for the response
+        // optionally we could also use a DTO object and let spring mvc do the conversion
+        // here we just use a simple string
         PrintWriter out = response.getWriter();
         out.print(token);
         out.flush();
         out.close();
         System.out.println("onAuthenticationSuccess");
+        // clean up a bit
         clearAuthenticationAttributes(request);
 
     }

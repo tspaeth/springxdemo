@@ -22,7 +22,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import javax.servlet.annotation.WebServlet;
 
 /**
- * Hello world!
+ * This is the base Application class also containing configuration
+ *
+ * The demo project contains a setup for
+ * - JPA Repositories
+ * - Automatic scanning for Components / Entity classes etc.
+ * - Entity IDs are exposed to the REST interface also
  *
  */
 
@@ -39,11 +44,6 @@ public class App implements CommandLineRunner
 
     @Override
     public void run(String... args) throws Exception {
-
-
-        SecurityContextHolder.getContext().setAuthentication(
-                new UsernamePasswordAuthenticationToken("user", "N/A", AuthorityUtils
-                        .commaSeparatedStringToAuthorityList("ROLE_USER")));
         try {
 //            System.out.println(this.service.secure());
         }
@@ -54,6 +54,8 @@ public class App implements CommandLineRunner
 
     @Configuration
     static class RepositoryConfig extends RepositoryRestMvcConfiguration {
+        // configure Spring Data REST to expose the entityID of these Entities for using it
+        // for client-side state and URL handling
         @Override
         protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
             config.exposeIdsFor(Beer.class, Company.class, Rating.class);

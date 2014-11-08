@@ -1,3 +1,10 @@
+/**
+ * @description Provides the actions for the uppermost header menu (language change and logout)
+ *
+ * @author Thorsten Spaeth <info@conserata.com>
+ *
+ *
+ */
 (function () {
     'use strict';
 

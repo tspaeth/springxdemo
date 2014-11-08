@@ -11,6 +11,8 @@ import javax.persistence.MappedSuperclass;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * Base entity for all database tables - provides the ID as Long
  */
 @MappedSuperclass
 public class BaseEntity implements Identifiable<Long> {

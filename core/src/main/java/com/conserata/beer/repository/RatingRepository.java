@@ -11,8 +11,12 @@ import java.util.List;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * Gives access to the JPA Rating-Table and also maps the REST endpoint on /rating
  */
 @RepositoryRestResource(path="rating")
 public interface RatingRepository extends PagingAndSortingRepository<Rating, Long> {
+
+    // custom search method on ratings by beerId
     List<Rating> findAllByBeerId(Long beerId);
 }

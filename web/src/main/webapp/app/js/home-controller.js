@@ -1,3 +1,11 @@
+/**
+ * @description This is the base controller for the / state
+ * It initializes the table model(s) on the left and right
+ *
+ * @author Thorsten Spaeth <info@conserata.com>
+ *
+ *
+ */
 (function () {
     'use strict';
 

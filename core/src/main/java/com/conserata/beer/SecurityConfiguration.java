@@ -44,6 +44,11 @@ import java.security.SecureRandom;
  *
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * This class configures the Spring Security/REST-Authentication parameters
+ *
+ * - Static usernames demo and admin (standard C&P stuff :-) ). Contains roles, but they're not really used.
+ * -
  */
 @Configuration
 @EnableWebSecurity
@@ -73,26 +78,43 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // OK... so let the fun begin
+        // How do we authenticate though?
 
-
+        // Ah, ok I want some class to handle the authentication failures? Right? Here we go...
         MyAuthenticationFailureHandler failureHandler = new MyAuthenticationFailureHandler();
 
         http
 //                .addFilterAfter(tokenAuthentication(),UsernamePasswordAuthenticationFilter.class)
+                // ok, before the AbstractPReAuthenticateProcessingFilter, I'd like to have a filter that checks
+                // for the existence of the Header Token (X-REST-AUTHENTICATION in the demo)
                 .addFilterBefore(tokenAuthentication(), AbstractPreAuthenticatedProcessingFilter.class)
+                // if you want to have some Basic Authentication stuff... not implemented though, but just for
+                // further configuration purposes left in
                 .exceptionHandling().authenticationEntryPoint(basicAuthenticationEntryPoint())
                 .and()
+                // Session Creation? ouh.. no! Let's get stateless a bit. Or kind of... doesn't matter
                 .sessionManagement().enableSessionUrlRewriting(false).sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
+                // So where does the XHR Call from the client go to? We use /auth here and that is why we allow everybody
+                // to use it without authentication
                 .authorizeRequests().antMatchers("/auth").permitAll()
                 .and()
+                // For the preflight requests of CORS, I'd like to allow them all. Otherwise, the client side will
+                // get really messy about that :-)
                 .authorizeRequests().antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .and()
+                 // everywhere else - please only come in if you have a valid token!
                 .authorizeRequests().antMatchers("/**").authenticated()
                 .and()
+                // And tada... here is the BASIC Auth implementation in case somebody might wanna use that.
                 .httpBasic().authenticationEntryPoint(basicAuthenticationEntryPoint())
+                // CSRF disabled in demo. But for sure - for security reasons you should enable it in production
                 .and().csrf().disable()
+                // as we are just using form authentication handling for processing the authentication itself
+                // we're just killing the redirtion and target urls to introduce custom handlers for doing the stuff
                 .formLogin().successHandler(successHandler()).
+                // TODO: Remove the processing url and just give back the Authorization state (HTTP 401 or 200)
                 loginProcessingUrl("/auth").failureHandler(failureHandler);
     }
 
@@ -110,7 +132,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new TokenAuthenticationFilter();
     }
 
-
+    /**
+     * In case the credentials where not correct, send back the corresponding HTTP state to the client
+     */
     private static class MyAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
         protected static final String STATUS_MESSAGE_AUTHENTICATION_FAILED = "Bad credentials";

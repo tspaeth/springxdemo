@@ -1,16 +1,28 @@
+/**
+ * @description Provides the actions for the detail view of a beer
+ * It provides
+ * - CREATE handling
+ * - VIEW handling
+ * - DELETE handling
+ *
+ * As it is a quick-and-dirty-implementatino, currently the Controller does the $http - calls itself
+ * It is a better idea to shift the actual http-calls to a delegate service
+ *
+ * @author Thorsten Spaeth <info@conserata.com>
+ *
+ *
+ */
 (function () {
     'use strict';
 
     angular.module('springbeer').controller('DetailCtrl', ['$scope', '$http', 'RESTBASE', '$state', '$q',
         function ($scope, $http, RESTBASE, $state, $q) {
             if ($state.params.beerId) {
-
+                // read beer mode
                 var deferredBeer = $http.get(RESTBASE.URL + '/beer/'+$state.params.beerId);
                 var deferredRating = $http.get(RESTBASE.URL + '/beer/'+$state.params.beerId + '/ratingsum');
-                var currentBeer;
                 $q.all([deferredBeer, deferredRating]).then(function (results) {
                     $scope.beer = results[0].data;
-//                    currentBeer = results[0];
                     $scope.beer.rating = results[1].data;
                 })
             } else {

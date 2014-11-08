@@ -12,6 +12,8 @@ import org.springframework.util.Assert;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * Currently all database setup is included in {@link com.conserata.beer.init.BeerInitializer}
  */
 @Service
 class CompanyInitializer {

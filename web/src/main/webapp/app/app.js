@@ -1,14 +1,17 @@
 /**
  * @ngdoc overview
  * @name springbeer
- * @description Main file
+ * @description Main file for bootstrapping the AngularJS application
  *
  * @author Thorsten Spaeth <info@conserata.com>
+ *
+ *
  *
  */
 (function () {
     'use strict';
     angular.module('springbeer', ['ui.router','ui.grid','ui.bootstrap','pascalprecht.translate', 'LocalStorageModule'])
+        // inject configuration providers
         .config(function ($stateProvider, $urlRouterProvider, $translateProvider, $httpProvider, localStorageServiceProvider) {
 
             /*
@@ -46,6 +49,8 @@
 
             /*
              * Translation initialization
+             *
+             * This sets up the
              */
             $translateProvider
                 .translations('en', {
@@ -66,6 +71,8 @@
                     'Logout': 'Abmelden',
                     'LIST_FILTER': 'Liste filtern'
                 })
+
+            // we set EN as the initially selected language
             $translateProvider.use('en');
 
             /*
@@ -74,14 +81,17 @@
             $httpProvider.interceptors.push('beerHttpInterceptor');
 
         })
+        // When the application configuration is done, do the following first in the run phase...
         .run(['$state', '$rootScope', function ($state, $rootScope) {
             console.log('running App');
 
+            // add an event listener for :error:denied broadcasts
             $rootScope.$on(':error:denied', function (data) {
                 console.log('errror');
                 $state.go('login');
             })
         }])
+        // Set the initial REST endpoint (if using the same port, a relative URL is sufficient)
         .constant('RESTBASE',{
             'URL': 'http://localhost:8080/server'
         })

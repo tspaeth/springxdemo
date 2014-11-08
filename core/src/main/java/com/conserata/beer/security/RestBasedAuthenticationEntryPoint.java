@@ -11,6 +11,8 @@ import java.io.IOException;
 /**
  * (c) conserata IT-Consulting
  * @author tspaeth
+ *
+ * Whenever the authentication fails - give some state back (401)
  */
 public class RestBasedAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
     @Override

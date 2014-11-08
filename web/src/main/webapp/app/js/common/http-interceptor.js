@@ -2,6 +2,7 @@
  * This is the custom http interceptor for the project that adds some headers (token) for processing the
  * AJAX requests
  *
+ * $q is the async base implementation that is doing the voodoo magic for us :)
  */
 (function () {
     'use strict';
@@ -10,17 +11,22 @@
 
             return {
                 request: function (config) {
+                    // if a token is "persisted" in local storage - add this as the request header as
+                    // X-Rest-Authentication
                     if (localStorageService.get('authtoken')) {
                         config.headers['X-Rest-Authentication'] = localStorageService.get('authtoken');
                     }
+                    // proceed with the normal request
                     return config || $q.when(config);
                 },
                 requestError: function (rejection) {
                     return $q.reject(rejection);
                 },
+                // intercept the response object - currently does no custom stuff
                 response: function (response) {
                     return response || $q.when(response);
                 },
+                // in case the response is somehow not in the 200er HTTP state area, do some custom stuff...
                 responseError: function (response) {
                     // do something on error
                     if (response.status === 0) {
